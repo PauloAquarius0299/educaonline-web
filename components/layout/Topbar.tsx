@@ -30,7 +30,7 @@ const Topbar = () => {
                 placeholder='Pesquisar por Cursos...'
                 />
                 <button
-                className='bg-[ #0e60cc] rounded-r-full border-none outline-none cursor-pointer px-4 py-3 hover:bg[#0e60cc]/80'
+                className='bg-[#0e60cc] rounded-r-full border-none outline-none cursor-pointer px-4 py-3 hover:bg[#0e60cc]/80'
                 >
                     <Search className='h-4 w-4' />
                 </button>
