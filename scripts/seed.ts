@@ -76,7 +76,7 @@ async function main() {
         { name: "Experiente" },
         { name: "Nivel Alto" },
       ],
-      skipDuplicates: true, 
+      //skipDuplicates: true, 
     });
 
     console.log("Seeding successfully");
