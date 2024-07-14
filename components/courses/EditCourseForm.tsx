@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,6 +23,7 @@ import axios from 'axios'
 import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Loader2, Trash } from "lucide-react";
+import Delete from "../custom/Delete";
 
 const formSchema = z.object({
     title: z.string().min(2, {
@@ -101,7 +101,7 @@ const EditCourseForm = ({course, categories, levels}: EditCourseFormProps) => {
 
       <div className='flex gap-4 items-start'>
         <Button variant='outline'>Publicar</Button>
-        <Button className='bg-red-500 hover:bg-red-700'><Trash /></Button>
+        <Delete item="course" courseId={course.id} />
       </div>
     </div>
     <Form {...form}>
@@ -207,6 +207,7 @@ const EditCourseForm = ({course, categories, levels}: EditCourseFormProps) => {
                    value={field.value || ""}
                    onChange={(url) => field.onChange(url)}
                    endpoint='courseBanner'
+                   page='Edit Course'
                    />
                   </FormControl>
                   <FormMessage />

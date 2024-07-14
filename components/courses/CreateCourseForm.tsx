@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import { ComboBox } from "@/components/custom/Combox";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import {Loader2} from 'lucide-react'
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -50,7 +51,9 @@ const CreateCourseForm = ({ categories }: CreateCourseFormProps) => {
           categoryId: "",
 
         },
-      })
+      });
+
+      const {isValid, isSubmitting} = form.formState;
 
       const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try{
@@ -113,7 +116,13 @@ const CreateCourseForm = ({ categories }: CreateCourseFormProps) => {
               </FormItem>
             )}
           />
-          <Button type="submit">Criar Curso</Button>
+          <Button type="submit" disabled={!isValid || isSubmitting}>
+            {isSubmitting ? (
+              <Loader2 className='h-4 w-4 animate-spin' />
+            ) : (
+              'Criar'
+            )}
+          </Button>
         </form>
       </Form>
       </div>
