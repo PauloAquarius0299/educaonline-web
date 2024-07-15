@@ -1,3 +1,16 @@
+# educaonline 
+![Captura de Tela (276)](https://github.com/user-attachments/assets/d7180fa9-7e79-4996-8f59-bde9c8f94574)
+### Ferramentas 
+* React
+* NextJs
+* TypeScript
+* Tailwind
+* shadcn-ui
+* Prisma
+* SQLServer
+* Nodejs
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
