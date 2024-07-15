@@ -3,30 +3,31 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Section,  MuxData, Resource } from "@prisma/client";
+import { MuxData, Resource, Section } from "@prisma/client";
+import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { ArrowLeft, Loader2, Trash } from "lucide-react";
+import MuxPlayer from "@mux/mux-player-react";
 
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import RichEditor from "@/components/custom/RichEditor";
-import { Switch } from "@/components/ui/switch";
 import FileUpload from "../custom/FileUpload";
-import Link from 'next/link';
-import axios from 'axios';
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { ArrowLeft, Loader2, Trash } from "lucide-react";
-import ResourceForm from "./ResourceForm";
-import MuxPlayer from '@mux/mux-player-react'
-import Delete from "../custom/Delete";
+import { Switch } from "@/components/ui/switch";
+import ResourceForm from "@/components/sections/ResourceForm";
+import Delete from "@/components/custom/Delete";
+import PublishButton from "../custom/PublishButton";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -83,7 +84,7 @@ const EditSectionForm = ({section, courseId, isCompleted}: EditSectionFormProps)
           </Button>
         </Link>
         <div className='flex gap-4 items-start'>
-          <Button variant='outline'>Publicar</Button>
+          <PublishButton disabled={!isCompleted} courseId={courseId} sectionId={section.id} isPublished={section.isPublished} page='section' />
           <Delete item='section' courseId={courseId} sectionId={section.id} />
         </div>
       </div>

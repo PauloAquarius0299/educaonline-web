@@ -24,6 +24,8 @@ import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Loader2, Trash } from "lucide-react";
 import Delete from "../custom/Delete";
+import PublishButton from "../custom/PublishButton";
+
 
 const formSchema = z.object({
     title: z.string().min(2, {
@@ -44,16 +46,17 @@ const formSchema = z.object({
   
 
 interface EditCourseFormProps{
-    course: Course;
-    categories:{
-      label: string;
-      value: string;
-      subCategories: {label: string, value: string}[];
+  course: Course;
+  categories: {
+    label: string; 
+    value: string; 
+    subCategories: { label: string; value: string }[];
   }[];
   levels: { label: string; value: string }[];
+  isCompleted: boolean;
 }
 
-const EditCourseForm = ({course, categories, levels}: EditCourseFormProps) => {
+const EditCourseForm = ({course, categories, levels, isCompleted}: EditCourseFormProps) => {
   const router = useRouter()
   const pathname = usePathname()
 
@@ -72,15 +75,15 @@ const EditCourseForm = ({course, categories, levels}: EditCourseFormProps) => {
       });
 
       const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        try{
-             await axios.patch(`/api/courses/${course.id}`, values)
-            toast.success('Curso Atualizado!')
-            router.refresh()
-        } catch(err){
-            console.log('Failed to create new course', err)
-            toast.error('Algo deu errado')
+        try {
+          await axios.patch(`/api/courses/${course.id}`, values);
+          toast.success("Course Atualizado");
+          router.refresh();
+        } catch (err) {
+          console.log("Falha ao atualizar", err);
+          toast.error("Algo deu errado!");
         }
-      }
+      };
 
       const routes = [
         {
@@ -100,7 +103,7 @@ const EditCourseForm = ({course, categories, levels}: EditCourseFormProps) => {
       </div>
 
       <div className='flex gap-4 items-start'>
-        <Button variant='outline'>Publicar</Button>
+        <PublishButton disabled={!isCompleted} courseId={course.id} isPublished={course.isPublished} page="Course" />
         <Delete item="course" courseId={course.id} />
       </div>
     </div>

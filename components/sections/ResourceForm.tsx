@@ -1,26 +1,25 @@
 "use client"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { Resource, Section } from "@prisma/client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { File, Loader2, PlusCircle, X } from "lucide-react";
 
-import { Resource, Section } from '@prisma/client';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import toast from "react-hot-toast";
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import SectionsList from "./SectionsList";
-import { File, PlusCircle, X, Loader2 } from "lucide-react";
-import FileUpload from "../custom/FileUpload";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import FileUpload from "@/components/custom/FileUpload";
 
 const formSchema = z.object({
   name: z.string().min(2, {

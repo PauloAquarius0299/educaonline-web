@@ -7,7 +7,7 @@ export const POST = async (
   { params }: { params: { courseId: string; sectionId: string } }
 ) => {
   try {
-    const { userId } = auth()
+    const { userId } = auth();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -33,23 +33,29 @@ export const POST = async (
       },
     });
 
-    if (!section) {
-      return new NextResponse("Section Not Found", { status: 404 });
-    }
-
-    const { name, fileUrl } = await req.json();
-
-    const resource = await db.resource.create({
-      data: {
-        name,
-        fileUrl,
+    const muxData = await db.muxData.findUnique({
+      where: {
         sectionId,
       },
     });
 
-    return NextResponse.json(resource, { status: 200 });
+    if (!section || !muxData || !section.title || !section.description || !section.videoUrl) {
+      return new NextResponse("Missing required fields", { status: 400 });
+    }
+
+    const publishedSection = await db.section.update({
+      where: {
+        id: sectionId,
+        courseId,
+      },
+      data: {
+        isPublished: true,
+      },
+    });
+
+    return NextResponse.json(publishedSection, { status: 200 });
   } catch (err) {
-    console.log("[resources_POST", err);
+    console.log("[section_publish_POST]", err)
     return new NextResponse("Internal Server Error", { status: 500 });
   }
-};
+}

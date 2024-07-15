@@ -44,7 +44,7 @@ const Delete = ({ item, courseId, sectionId }: DeleteProps) => {
       router.refresh();
       toast.success(`${item} deletado!`);
     } catch (err) {
-      toast.error(`algo deu errado!`);
+      toast.error(`Algo deu errado!`);
       console.log(`Failed to delete the ${item}`, err);
     }
   };

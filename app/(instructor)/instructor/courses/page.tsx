@@ -29,7 +29,7 @@ const CoursesPage = async () => {
             </Button>
             <div className='mt-10'>
                 {courses.map((course) => (
-                    <Link href={`/instructor/courses/${course.id}/basic`}>{course.title}</Link>
+                    <Link href={`/instructor/courses/${course.id}/basic`} key={course.id} >{course.title}</Link>
                 ))}
             </div>
             </Link>
